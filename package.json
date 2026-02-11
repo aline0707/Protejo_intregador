@@ -1,0 +1,27 @@
+{
+  "name": "protejo_intregador",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/aline0707/Protejo_intregador#readme",
+  "bugs": {
+    "url": "https://github.com/aline0707/Protejo_intregador/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aline0707/Protejo_intregador.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "dev": "nodemon index"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.2.4",
+    "express": "^5.2.1",
+    "mysql2": "^3.17.0"
+  }
+}
