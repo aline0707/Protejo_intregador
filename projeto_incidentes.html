@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Sistema de Incidentes</title>
+</head>
+
+<body>
+
+<h1>Painel de Incidentes</h1>
+
+<h2>Criar Incidente</h2>
+
+<input id="titulo" placeholder="Título"><br><br>
+
+<textarea id="descricao" placeholder="Descrição"></textarea><br><br>
+
+<select id="criticidade">
+<option value="baixa">Baixa</option>
+<option value="media">Média</option>
+<option value="alta">Alta</option>
+<option value="critica">Crítica</option>
+</select>
+
+<br><br>
+
+<input id="cliente" placeholder="Cliente"><br><br>
+
+<button onclick="criarIncidente()">Criar Incidente</button>
+
+<hr>
+
+<h2>Lista de Incidentes</h2>
+
+<ul id="listaIncidentes"></ul>
+
+<script>
+
+function listarIncidentes(){
+
+fetch("http://localhost:3000/incidentes")
+.then(res => res.json())
+.then(dados => {
+
+let lista = document.getElementById("listaIncidentes")
+
+lista.innerHTML = ""
+
+dados.forEach(incidente => {
+
+lista.innerHTML += `
+<li>
+${incidente.titulo} - ${incidente.criticidade} - ${incidente.status}
+</li>
+`
+
+})
+
+})
+
+}
+
+function criarIncidente(){
+
+let titulo = document.getElementById("titulo").value
+let descricao = document.getElementById("descricao").value
+let criticidade = document.getElementById("criticidade").value
+let cliente = document.getElementById("cliente").value
+
+fetch("http://localhost:3000/incidentes",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body: JSON.stringify({
+titulo,
+descricao,
+criticidade,
+status:"aberto",
+cliente,
+usuario_id:1,
+turno_id:1
+})
+
+})
+
+.then(res=>res.json())
+.then(dados=>{
+
+alert("Incidente criado!")
+
+listarIncidentes()
+
+})
+
+}
+
+listarIncidentes()
+
+</script>
+
+</body>
+</html>
