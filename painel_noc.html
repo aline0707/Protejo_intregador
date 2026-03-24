@@ -80,6 +80,31 @@ Total
 </div>
 
 </div>
+<h2>Dashboard NOC</h2>
+
+<div style="display:flex; gap:20px">
+
+<div>
+<h3>Abertos</h3>
+<p id="abertos">0</p>
+</div>
+
+<div>
+<h3>Em análise</h3>
+<p id="analise">0</p>
+</div>
+
+<div>
+<h3>Resolvidos</h3>
+<p id="resolvidos">0</p>
+</div>
+
+<div>
+<h3>Críticos</h3>
+<p id="criticos">0</p>
+</div>
+
+</div>
 
 <h2>Lista de Incidentes</h2>
 
@@ -142,6 +167,26 @@ document.getElementById("total").innerText=dados.length
 carregarIncidentes()
 
 setInterval(carregarIncidentes,5000)
+
+</script>
+<script>
+
+function carregarEstatisticas(){
+
+fetch("http://localhost:3000/incidentes/estatisticas")
+.then(res=>res.json())
+.then(data=>{
+
+document.getElementById("abertos").innerText = data.abertos
+document.getElementById("analise").innerText = data.analise
+document.getElementById("resolvidos").innerText = data.resolvidos
+document.getElementById("criticos").innerText = data.criticos
+
+})
+
+}
+
+carregarEstatisticas()
 
 </script>
 

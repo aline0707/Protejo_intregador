@@ -98,6 +98,26 @@ listarIncidentes()
 
 }
 
+function resolverIncidente(id){
+
+fetch("http://localhost:3000/incidentes/"+id,{
+method:"PUT",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+status:"resolvido",
+usuario_id:1
+})
+})
+.then(res=>res.json())
+.then(data=>{
+console.log(data)
+carregarIncidentes()
+})
+
+}
+
 listarIncidentes()
 
 </script>
