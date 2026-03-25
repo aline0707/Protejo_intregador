@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+<title>Logs do Sistema - SentinelaOps</title>
+
+<style>
+
+body{
+font-family: Arial;
+background:#0f172a;
+color:white;
+margin:0;
+}
+
+.layout{
+display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:220px;
+background:#020617;
+height:100vh;
+padding:20px;
+}
+
+.sidebar h2{
+color:#38bdf8;
+margin-bottom:30px;
+}
+
+.sidebar a{
+display:block;
+color:white;
+text-decoration:none;
+padding:10px;
+margin-bottom:10px;
+border-radius:6px;
+}
+
+.sidebar a:hover{
+background:#1e293b;
+}
+
+/* CONTEÚDO */
+
+.conteudo{
+flex:1;
+padding:40px;
+}
+
+.card{
+background:#1e293b;
+padding:20px;
+border-radius:10px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,td{
+padding:10px;
+border-bottom:1px solid #334155;
+text-align:left;
+}
+
+th{
+color:#38bdf8;
+}
+
+.tipo-criacao{
+color:#22c55e;
+}
+
+.tipo-edicao{
+color:#facc15;
+}
+
+.tipo-resolucao{
+color:#ef4444;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<h2>SentinelaOps</h2>
+
+<a href="index.html">Dashboard</a>
+<a href="incidentes.html">Incidentes</a>
+<a href="usuarios.html">Usuários</a>
+<a href="painel_noc.html">Painel NOC</a>
+<a href="logs.html">Logs</a>
+
+<hr>
+
+<a href="login.html">Sair</a>
+
+</div>
+
+
+<!-- CONTEÚDO -->
+
+<div class="conteudo">
+
+<h1>Logs do Sistema</h1>
+
+<div class="card">
+
+<table>
+
+<thead>
+
+<tr>
+<th>ID</th>
+<th>Usuário</th>
+<th>Ação</th>
+<th>Incidente</th>
+<th>Data</th>
+</tr>
+
+</thead>
+
+<tbody id="listaLogs"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+function carregarLogs(){
+
+fetch("http://localhost:3000/logs")
+
+.then(res => res.json())
+
+.then(dados => {
+
+let lista = document.getElementById("listaLogs")
+
+lista.innerHTML = ""
+
+dados.forEach(log => {
+
+lista.innerHTML += `
+
+<tr>
+
+<td>${log.id}</td>
+
+<td>${log.usuario}</td>
+
+<td>${log.acao}</td>
+
+<td>${log.incidente_id}</td>
+
+<td>${log.data}</td>
+
+</tr>
+
+`
+
+})
+
+})
+
+}
+
+carregarLogs()
+
+setInterval(carregarLogs,5000)
+
+</script>
+
+</body>
+
+</html>
