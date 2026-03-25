@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+<title>Usuários - SentinelaOps</title>
+
+<style>
+
+body{
+font-family: Arial;
+background:#0f172a;
+color:white;
+margin:0;
+}
+
+.layout{
+display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:220px;
+background:#020617;
+height:100vh;
+padding:20px;
+}
+
+.sidebar h2{
+color:#38bdf8;
+margin-bottom:30px;
+}
+
+.sidebar a{
+display:block;
+color:white;
+text-decoration:none;
+padding:10px;
+margin-bottom:10px;
+border-radius:6px;
+}
+
+.sidebar a:hover{
+background:#1e293b;
+}
+
+/* CONTEÚDO */
+
+.conteudo{
+flex:1;
+padding:40px;
+}
+
+.card{
+background:#1e293b;
+padding:20px;
+border-radius:10px;
+margin-bottom:30px;
+}
+
+input, select{
+width:100%;
+padding:10px;
+margin-top:5px;
+margin-bottom:15px;
+border-radius:6px;
+border:none;
+}
+
+button{
+padding:10px 20px;
+border:none;
+border-radius:6px;
+background:#2563eb;
+color:white;
+cursor:pointer;
+}
+
+button:hover{
+background:#1d4ed8;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th, td{
+padding:10px;
+border-bottom:1px solid #334155;
+text-align:left;
+}
+
+.perfil-operador{
+color:#38bdf8;
+}
+
+.perfil-supervisor{
+color:#facc15;
+}
+
+.status-ativo{
+color:#22c55e;
+}
+
+.status-inativo{
+color:#ef4444;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<h2>SentinelaOps</h2>
+
+<a href="index.html">Dashboard</a>
+<a href="projeto_incidentes.html">Incidentes</a>
+<a href="projeto_usuarios.html">Usuários</a>
+<a href="painel_noc.html">Painel NOC</a>
+<a href="logs.html">Logs</a>
+
+<hr>
+
+<a href="login.html">Sair</a>
+
+</div>
+
+
+<!-- CONTEÚDO -->
+
+<div class="conteudo">
+
+<h1>Gerenciamento de Usuários</h1>
+
+<div class="card">
+
+<h2>Criar Usuário</h2>
+
+<input id="nome" placeholder="Nome do usuário">
+
+<input id="email" placeholder="Email">
+
+<input id="senha" type="password" placeholder="Senha">
+
+<select id="perfil">
+<option value="operador">Operador</option>
+<option value="supervisor">Supervisor</option>
+</select>
+
+<button onclick="criarUsuario()">Criar Usuário</button>
+
+</div>
+
+
+<div class="card">
+
+<h2>Lista de Usuários</h2>
+
+<table>
+
+<thead>
+<tr>
+<th>ID</th>
+<th>Nome</th>
+<th>Email</th>
+<th>Perfil</th>
+<th>Status</th>
+<th>Ações</th>
+</tr>
+</thead>
+
+<tbody id="listaUsuarios"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+    
+function listarUsuarios(){
+
+fetch("http://localhost:3000/usuarios")
+
+.then(res => res.json())
+
+.then(dados => {
+
+let lista = document.getElementById("listaUsuarios")
+
+lista.innerHTML = ""
+
+dados.forEach(usuario => {
+
+lista.innerHTML += `
+
+<tr>
+
+<td>${usuario.id}</td>
+
+<td>${usuario.nome}</td>
+
+<td>${usuario.email}</td>
+
+<td class="perfil-${usuario.perfil}">
+${usuario.perfil}
+</td>
+
+<td class="${usuario.ativo ? "status-ativo" : "status-inativo"}">
+${usuario.ativo ? "Ativo" : "Inativo"}
+</td>
+
+<td>
+
+<button onclick="editarUsuario(${usuario.id},'${usuario.nome}','${usuario.email}','${usuario.perfil}')">
+Editar
+</button>
+
+<button onclick="toggleUsuario(${usuario.id}, ${usuario.ativo})">
+${usuario.ativo ? "Desativar" : "Ativar"}
+</button>
+
+<button onclick="resetSenha(${usuario.id})">
+Reset Senha
+</button>
+
+</td>
+
+</tr>
+
+`
+
+})
+
+})
+
+}
+
+
+function criarUsuario(){
+
+let nome = document.getElementById("nome").value
+let email = document.getElementById("email").value
+let senha = document.getElementById("senha").value
+let perfil = document.getElementById("perfil").value
+
+fetch("http://localhost:3000/usuarios",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+nome,
+email,
+senha,
+perfil,
+ativo:true
+})
+
+})
+
+.then(res=>res.json())
+
+.then(()=>{
+
+alert("Usuário criado com sucesso!")
+
+listarUsuarios()
+
+})
+
+}
+function editarUsuario(id,nome,email,perfil){
+
+let novoNome = prompt("Novo nome:",nome)
+let novoEmail = prompt("Novo email:",email)
+let novoPerfil = prompt("Perfil (operador/supervisor):",perfil)
+
+fetch("http://localhost:3000/usuarios/"+id,{
+
+method:"PUT",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+nome:novoNome,
+email:novoEmail,
+perfil:novoPerfil
+})
+
+})
+
+.then(res=>res.json())
+
+.then(()=>{
+
+alert("Usuário atualizado!")
+
+listarUsuarios()
+
+})
+
+}
+function toggleUsuario(id,ativo){
+
+fetch("http://localhost:3000/usuarios/"+id,{
+
+method:"PUT",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+ativo:!ativo
+})
+
+})
+
+.then(res=>res.json())
+
+.then(()=>{
+
+listarUsuarios()
+
+})
+
+}
+listarUsuarios()
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+<title>Incidentes - SentinelaOps</title>
+
+<style>
+
+body{
+font-family: Arial;
+background:#0f172a;
+color:white;
+margin:0;
+}
+
+.layout{
+display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:220px;
+background:#020617;
+height:100vh;
+padding:20px;
+}
+
+.sidebar h2{
+color:#38bdf8;
+margin-bottom:30px;
+}
+
+.sidebar a{
+display:block;
+color:white;
+text-decoration:none;
+padding:10px;
+margin-bottom:10px;
+border-radius:6px;
+}
+
+.sidebar a:hover{
+background:#1e293b;
+}
+
+/* CONTEÚDO */
+
+.conteudo{
+flex:1;
+padding:40px;
+}
+
+.card{
+background:#1e293b;
+padding:20px;
+border-radius:10px;
+margin-bottom:30px;
+}
+
+input, textarea, select{
+width:100%;
+padding:10px;
+margin-top:5px;
+margin-bottom:15px;
+border-radius:6px;
+border:none;
+}
+
+button{
+padding:10px 20px;
+border:none;
+border-radius:6px;
+background:#2563eb;
+color:white;
+cursor:pointer;
+}
+
+button:hover{
+background:#1d4ed8;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,td{
+padding:10px;
+border-bottom:1px solid #334155;
+}
+
+.status-aberto{
+color:#facc15;
+}
+
+.status-resolvido{
+color:#22c55e;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<h2>SentinelaOps</h2>
+
+<a href="index.html">Dashboard</a>
+<a href="projeto_incidentes.html">Incidentes</a>
+<a href="projeto_usuarios.html">Usuários</a>
+<a href="painel_noc.html">Painel NOC</a>
+<a href="logs.html">Logs</a>
+
+<hr>
+
+<a href="login.html">Sair</a>
+
+</div>
+
+
+<!-- CONTEÚDO -->
+
+<div class="conteudo">
+
+<h1>Painel de Incidentes</h1>
+
+<div class="card">
+
+<h2>Criar Incidente</h2>
+
+<input id="titulo" placeholder="Título do incidente">
+
+<textarea id="descricao" placeholder="Descrição do problema"></textarea>
+
+<select id="criticidade">
+<option value="baixa">Baixa</option>
+<option value="media">Média</option>
+<option value="alta">Alta</option>
+<option value="critica">Crítica</option>
+</select>
+
+<input id="cliente" placeholder="Cliente">
+
+<button onclick="criarIncidente()">Criar Incidente</button>
+
+</div>
+
+
+<div class="card">
+
+<h2>Lista de Incidentes</h2>
+
+<table>
+
+<thead>
+<tr>
+<th>ID</th>
+<th>Título</th>
+<th>Criticidade</th>
+<th>Status</th>
+<th>Ação</th>
+</tr>
+</thead>
+
+<tbody id="listaIncidentes"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+function listarIncidentes(){
+
+fetch("http://localhost:3000/incidentes")
+
+.then(res => res.json())
+
+.then(dados => {
+
+let lista = document.getElementById("listaIncidentes")
+
+lista.innerHTML = ""
+
+dados.forEach(incidente => {
+
+lista.innerHTML += `
+<tr>
+
+<td>${incidente.id}</td>
+
+<td>${incidente.titulo}</td>
+
+<td>${incidente.criticidade}</td>
+
+<td class="status-${incidente.status}">
+${incidente.status}
+</td>
+
+<td>
+<button onclick="resolverIncidente(${incidente.id})">
+Resolver
+</button>
+</td>
+
+</tr>
+`
+
+})
+
+})
+
+}
+
+
+function criarIncidente(){
+
+let titulo = document.getElementById("titulo").value
+let descricao = document.getElementById("descricao").value
+let criticidade = document.getElementById("criticidade").value
+let cliente = document.getElementById("cliente").value
+
+fetch("http://localhost:3000/incidentes",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body: JSON.stringify({
+titulo,
+descricao,
+criticidade,
+status:"aberto",
+cliente,
+usuario_id:1,
+turno_id:1
+})
+
+})
+
+.then(res=>res.json())
+
+.then(()=>{
+
+alert("Incidente criado com sucesso!")
+
+listarIncidentes()
+
+})
+
+}
+
+
+function resolverIncidente(id){
+
+fetch("http://localhost:3000/incidentes/"+id,{
+
+method:"PUT",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+status:"resolvido",
+usuario_id:1
+})
+
+})
+
+.then(res=>res.json())
+
+.then(()=>{
+
+listarIncidentes()
+
+})
+
+}
+
+
+listarIncidentes()
+
+</script>
+
+</body>
+
+</html>
