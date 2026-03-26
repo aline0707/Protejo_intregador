@@ -1,304 +1,242 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="pt-br">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incidentes - SentinelaOps</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #0f172a;
+            color: white;
+            display: flex;
+        }
 
-<meta charset="UTF-8">
-<title>Incidentes - SentinelaOps</title>
+        /* SIDEBAR */
+        .sidebar {
+            width: 240px;
+            background: #020617;
+            height: 100vh;
+            padding: 25px;
+            position: sticky;
+            top: 0;
+        }
 
-<style>
+        .sidebar h2 { color: #38bdf8; margin-bottom: 30px; text-align: center; }
+        
+        .sidebar a {
+            display: block;
+            color: #94a3b8;
+            text-decoration: none;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
 
-body{
-font-family: Arial;
-background:#0f172a;
-color:white;
-margin:0;
-}
+        .sidebar a:hover { background: #1e293b; color: white; }
+        .sidebar a.active { background: #2563eb; color: white; }
 
-.layout{
-display:flex;
-}
+        /* CONTEÚDO */
+        .conteudo { flex: 1; padding: 40px; }
 
-/* SIDEBAR */
+        .card {
+            background: #1e293b;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
 
-.sidebar{
-width:220px;
-background:#020617;
-height:100vh;
-padding:20px;
-}
+        h2 { margin-bottom: 20px; color: #f8fafc; font-size: 1.2rem; }
 
-.sidebar h2{
-color:#38bdf8;
-margin-bottom:30px;
-}
+        label { display: block; margin-bottom: 5px; font-size: 0.9rem; color: #94a3b8; }
 
-.sidebar a{
-display:block;
-color:white;
-text-decoration:none;
-padding:10px;
-margin-bottom:10px;
-border-radius:6px;
-}
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            background: #0f172a;
+            color: white;
+            outline: none;
+        }
 
-.sidebar a:hover{
-background:#1e293b;
-}
+        input:focus, textarea:focus { border-color: #38bdf8; }
 
-/* CONTEÚDO */
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            background: #2563eb;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
 
-.conteudo{
-flex:1;
-padding:40px;
-}
+        button:hover { background: #1d4ed8; }
 
-.card{
-background:#1e293b;
-padding:20px;
-border-radius:10px;
-margin-bottom:30px;
-}
+        button.btn-resolver { background: #10b981; font-size: 0.8rem; padding: 6px 12px; }
+        button.btn-resolver:hover { background: #059669; }
 
-input, textarea, select{
-width:100%;
-padding:10px;
-margin-top:5px;
-margin-bottom:15px;
-border-radius:6px;
-border:none;
-}
+        /* TABELA */
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th { text-align: left; padding: 15px; color: #38bdf8; border-bottom: 2px solid #334155; font-size: 0.9rem; }
+        td { padding: 15px; border-bottom: 1px solid #334155; font-size: 0.9rem; }
 
-button{
-padding:10px 20px;
-border:none;
-border-radius:6px;
-background:#2563eb;
-color:white;
-cursor:pointer;
-}
-
-button:hover{
-background:#1d4ed8;
-}
-
-table{
-width:100%;
-border-collapse:collapse;
-}
-
-th,td{
-padding:10px;
-border-bottom:1px solid #334155;
-}
-
-.status-aberto{
-color:#facc15;
-}
-
-.status-resolvido{
-color:#22c55e;
-}
-
-</style>
-
+        /* Status e Criticidade */
+        .status-aberto { color: #facc15; font-weight: bold; }
+        .status-resolvido { color: #22c55e; font-weight: bold; }
+        .crit-critica { color: #ef4444; font-weight: bold; }
+        .crit-alta { color: #f97316; }
+    </style>
 </head>
 
 <body>
 
-<div class="layout">
-
-<!-- SIDEBAR -->
-
-<div class="sidebar">
-
-<h2>SentinelaOps</h2>
-
-<a href="index.html">Dashboard</a>
-<a href="projeto_incidentes.html">Incidentes</a>
-<a href="projeto_usuarios.html">Usuários</a>
-<a href="painel_noc.html">Painel NOC</a>
-<a href="logs.html">Logs</a>
-
-<hr>
-
-<a href="login.html">Sair</a>
-
-</div>
-
-
-<!-- CONTEÚDO -->
-
-<div class="conteudo">
-
-<h1>Painel de Incidentes</h1>
-
-<div class="card">
-
-<h2>Criar Incidente</h2>
-
-<input id="titulo" placeholder="Título do incidente">
-
-<textarea id="descricao" placeholder="Descrição do problema"></textarea>
-
-<select id="criticidade">
-<option value="baixa">Baixa</option>
-<option value="media">Média</option>
-<option value="alta">Alta</option>
-<option value="critica">Crítica</option>
-</select>
-
-<input id="cliente" placeholder="Cliente">
-
-<button onclick="criarIncidente()">Criar Incidente</button>
-
-</div>
-
-
-<div class="card">
-
-<h2>Lista de Incidentes</h2>
-
-<table>
-
-<thead>
-<tr>
-<th>ID</th>
-<th>Título</th>
-<th>Criticidade</th>
-<th>Status</th>
-<th>Ação</th>
-</tr>
-</thead>
-
-<tbody id="listaIncidentes"></tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</div>
-
-
-<script>
-
-function listarIncidentes(){
-
-fetch("http://localhost:3000/incidentes")
-
-.then(res => res.json())
-
-.then(dados => {
-
-let lista = document.getElementById("listaIncidentes")
-
-lista.innerHTML = ""
-
-dados.forEach(incidente => {
-
-lista.innerHTML += `
-<tr>
-
-<td>${incidente.id}</td>
-
-<td>${incidente.titulo}</td>
-
-<td>${incidente.criticidade}</td>
-
-<td class="status-${incidente.status}">
-${incidente.status}
-</td>
-
-<td>
-<button onclick="resolverIncidente(${incidente.id})">
-Resolver
-</button>
-</td>
-
-</tr>
-`
-
-})
-
-})
-
-}
-
-
-function criarIncidente(){
-
-let titulo = document.getElementById("titulo").value
-let descricao = document.getElementById("descricao").value
-let criticidade = document.getElementById("criticidade").value
-let cliente = document.getElementById("cliente").value
-
-fetch("http://localhost:3000/incidentes",{
-
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body: JSON.stringify({
-titulo,
-descricao,
-criticidade,
-status:"aberto",
-cliente,
-usuario_id:1,
-turno_id:1
-})
-
-})
-
-.then(res=>res.json())
-
-.then(()=>{
-
-alert("Incidente criado com sucesso!")
-
-listarIncidentes()
-
-})
-
-}
-
-
-function resolverIncidente(id){
-
-fetch("http://localhost:3000/incidentes/"+id,{
-
-method:"PUT",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify({
-status:"resolvido",
-usuario_id:1
-})
-
-})
-
-.then(res=>res.json())
-
-.then(()=>{
-
-listarIncidentes()
-
-})
-
-}
-
-
-listarIncidentes()
-
-</script>
-
+    <nav class="sidebar">
+        <h2>SentinelaOps</h2>
+        <a href="index.html">Dashboard</a>
+        <a href="projeto_incidentes.html" class="active">Incidentes</a>
+        <a href="projeto_usuarios.html">Usuários</a>
+        <a href="painel_noc.html">Painel NOC</a>
+        <a href="logs.html">Logs</a>
+        <hr style="border:0; border-top:1px solid #334155; margin: 20px 0;">
+        <a href="login.html" style="color: #fb7185;">Sair</a>
+    </nav>
+
+    <main class="conteudo">
+        <h1>Painel de Incidentes</h1>
+
+        <div class="card">
+            <h2>Criar Novo Incidente</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div>
+                    <label>Título</label>
+                    <input id="titulo" placeholder="Ex: Queda de Link Fibra">
+                </div>
+                <div>
+                    <label>Cliente</label>
+                    <input id="cliente" placeholder="Nome do Cliente">
+                </div>
+            </div>
+
+            <label>Descrição</label>
+            <textarea id="descricao" rows="3" placeholder="Detalhes do problema..."></textarea>
+
+            <label>Criticidade</label>
+            <select id="criticidade">
+                <option value="baixa">Baixa</option>
+                <option value="media" selected>Média</option>
+                <option value="alta">Alta</option>
+                <option value="critica">Crítica</option>
+            </select>
+
+            <button onclick="criarIncidente()">Abrir Ticket</button>
+        </div>
+
+        <div class="card">
+            <h2>Lista de Incidentes em Aberto</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Título</th>
+                        <th>Criticidade</th>
+                        <th>Status</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody id="listaIncidentes"></tbody>
+            </table>
+        </div>
+    </main>
+
+    <script>
+        function listarIncidentes() {
+            fetch("http://localhost:3000/incidentes")
+                .then(res => res.json())
+                .then(dados => {
+                    const lista = document.getElementById("listaIncidentes");
+                    lista.innerHTML = "";
+
+                    dados.forEach(incidente => {
+                        const isResolvido = incidente.status === "resolvido";
+                        const classeCrit = incidente.criticidade === "critica" ? "crit-critica" : (incidente.criticidade === "alta" ? "crit-alta" : "");
+
+                        lista.innerHTML += `
+                            <tr>
+                                <td>#${incidente.id}</td>
+                                <td><strong>${incidente.titulo}</strong></td>
+                                <td class="${classeCrit}">${incidente.criticidade.toUpperCase()}</td>
+                                <td class="status-${incidente.status}">${incidente.status}</td>
+                                <td>
+                                    ${!isResolvido ? 
+                                        `<button class="btn-resolver" onclick="resolverIncidente(${incidente.id})">Resolver</button>` 
+                                        : '✅ Finalizado'}
+                                </td>
+                            </tr>
+                        `;
+                    });
+                })
+                .catch(err => console.error("Erro ao listar:", err));
+        }
+
+        function criarIncidente() {
+            const campos = {
+                titulo: document.getElementById("titulo"),
+                descricao: document.getElementById("descricao"),
+                criticidade: document.getElementById("criticidade"),
+                cliente: document.getElementById("cliente")
+            };
+
+            const payload = {
+                titulo: campos.titulo.value,
+                descricao: campos.descricao.value,
+                criticidade: campos.criticidade.value,
+                status: "aberto",
+                cliente: campos.cliente.value,
+                usuario_id: 1 // No futuro, pegar do localStorage
+            };
+
+            fetch("http://localhost:3000/incidentes", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json())
+            .then(() => {
+                alert("Incidente registrado com sucesso!");
+                // Limpa os campos
+                campos.titulo.value = "";
+                campos.descricao.value = "";
+                campos.cliente.value = "";
+                listarIncidentes();
+            })
+            .catch(err => alert("Erro ao criar incidente. Verifique o servidor."));
+        }
+
+        function resolverIncidente(id) {
+            if (!confirm("Deseja marcar este incidente como resolvido?")) return;
+
+            fetch(`http://localhost:3000/incidentes/${id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ status: "resolvido" })
+            })
+            .then(res => res.json())
+            .then(() => {
+                listarIncidentes();
+            })
+            .catch(err => console.error("Erro ao resolver:", err));
+        }
+
+        // Carga inicial
+        listarIncidentes();
+    </script>
 </body>
-
 </html>

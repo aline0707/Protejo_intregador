@@ -1,373 +1,272 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="pt-br">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel NOC - SentinelaOps</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #0f172a;
+            color: white;
+            display: flex;
+        }
 
-<meta charset="UTF-8">
-<title>Painel NOC</title>
+        /* SIDEBAR */
+        .sidebar {
+            width: 240px;
+            background: #020617;
+            height: 100vh;
+            padding: 25px;
+            position: sticky;
+            top: 0;
+        }
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        .sidebar h2 { color: #38bdf8; margin-bottom: 30px; text-align: center; }
+        
+        .sidebar a {
+            display: block;
+            color: #94a3b8;
+            text-decoration: none;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
 
-<style>
+        .sidebar a:hover, .sidebar a.active { background: #1e293b; color: white; }
+        .sidebar a.active { border-left: 4px solid #38bdf8; }
 
-body{
-font-family: Arial;
-background:#111;
-color:white;
-margin:0;
-}
+        /* CONTEÚDO */
+        .conteudo {
+            flex: 1;
+            padding: 40px;
+            max-width: 1400px;
+        }
 
-/* LAYOUT */
+        h1 { margin-bottom: 30px; font-weight: 300; }
 
-.layout{
-display:flex;
-}
+        /* DASHBOARD CARDS */
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
 
-/* SIDEBAR */
+        .card {
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
 
-.sidebar{
-width:220px;
-background:#020617;
-height:100vh;
-padding:20px;
-}
+        .card h2 { font-size: 36px; margin-top: 10px; }
+        .critico { background: #ef4444; }
+        .analise { background: #f59e0b; }
+        .resolvido { background: #10b981; }
+        .total { background: #3b82f6; }
 
-.sidebar h2{
-color:#38bdf8;
-margin-bottom:30px;
-}
+        /* GRÁFICOS */
+        .secao-titulo { margin: 40px 0 20px; color: #38bdf8; border-bottom: 1px solid #334155; padding-bottom: 10px; }
+        
+        .graficos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 25px;
+        }
 
-.sidebar a{
-display:block;
-color:white;
-text-decoration:none;
-padding:10px;
-margin-bottom:10px;
-border-radius:6px;
-}
+        .grafico-card {
+            background: #1e293b;
+            padding: 20px;
+            border-radius: 12px;
+            height: 350px; /* Altura fixa para os gráficos */
+        }
 
-.sidebar a:hover{
-background:#1e293b;
-}
+        /* TABELA */
+        .tabela-container {
+            background: #1e293b;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            overflow-x: auto;
+        }
 
-/* CONTEÚDO */
+        table { width: 100%; border-collapse: collapse; }
+        th { color: #94a3b8; text-align: left; padding: 15px; border-bottom: 2px solid #334155; }
+        td { padding: 15px; border-bottom: 1px solid #334155; }
 
-.conteudo{
-flex:1;
-padding:40px;
-max-width:1400px;
-margin:auto;
-}
+        /* Badges de Status/Criticidade */
+        .badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .badge-critica { background: #7f1d1d; color: #fecaca; }
+        .badge-alta { background: #9a3412; color: #ffedd5; }
+        .badge-resolvido { background: #064e3b; color: #d1fae5; }
 
-h1{
-text-align:center;
-margin-bottom:30px;
-}
-
-/* DASHBOARD */
-
-.dashboard{
-display:flex;
-gap:20px;
-margin-bottom:30px;
-}
-
-.card{
-flex:1;
-padding:20px;
-border-radius:10px;
-text-align:center;
-font-size:20px;
-}
-
-.critico{ background:#c0392b; }
-.analise{ background:#f39c12; }
-.resolvido{ background:#27ae60; }
-.total{ background:#3498db; }
-
-/* GRÁFICOS */
-
-.graficos{
-display:flex;
-gap:30px;
-margin-top:30px;
-flex-wrap:wrap;
-}
-
-.grafico-card{
-background:#1e293b;
-padding:20px;
-border-radius:10px;
-width:450px;
-height:320px;
-}
-
-canvas{
-width:100% !important;
-height:100% !important;
-}
-
-/* TABELA */
-
-table{
-width:100%;
-border-collapse:collapse;
-margin-top:20px;
-}
-
-th,td{
-padding:10px;
-border-bottom:1px solid #444;
-text-align:left;
-}
-
-</style>
-
+    </style>
 </head>
-
 <body>
 
-<div class="layout">
+<nav class="sidebar">
+    <h2>SentinelaOps</h2>
+    <a href="index.html">Dashboard</a>
+    <a href="projeto_incidentes.html">Incidentes</a>
+    <a href="projeto_usuarios.html">Usuários</a>
+    <a href="painel_noc.html" class="active">Painel NOC</a>
+    <a href="logs.html">Logs</a>
+    <hr style="border:0; border-top:1px solid #334155; margin: 20px 0;">
+    <a href="#" onclick="logout()" style="color: #fb7185;">Sair</a>
+</nav>
 
-<!-- SIDEBAR -->
+<main class="conteudo">
+    <h1>Painel de Operações (NOC)</h1>
 
-<div class="sidebar">
+    <div class="dashboard">
+        <div class="card critico">Críticos <h2 id="num-criticos">0</h2></div>
+        <div class="card analise">Em análise <h2 id="num-analise">0</h2></div>
+        <div class="card resolvido">Resolvidos <h2 id="num-resolvidos">0</h2></div>
+        <div class="card total">Total <h2 id="num-total">0</h2></div>
+    </div>
 
-<h2>SentinelaOps</h2>
+    <h2 class="secao-titulo">Estatísticas em Tempo Real</h2>
+    <div class="graficos">
+        <div class="grafico-card">
+            <canvas id="graficoStatus"></canvas>
+        </div>
+        <div class="grafico-card">
+            <canvas id="graficoCriticidade"></canvas>
+        </div>
+    </div>
 
-<a href="index.html">Dashboard</a>
-<a href="projeto_incidentes.html">Incidentes</a>
-<a href="projeto_usuarios.html">Usuários</a>
-<a href="painel_noc.html">Painel NOC</a>
-<a href="logs.html">Logs</a>
-
-<hr>
-
-<a href="#" onclick="logout()">Sair</a>
-
-</div>
-
-
-<!-- CONTEÚDO -->
-
-<div class="conteudo">
-
-<h1>Painel NOC - Incidentes</h1>
-
-<!-- DASHBOARD -->
-
-<div class="dashboard">
-
-<div class="card critico">
-Críticos
-<h2 id="criticos">0</h2>
-</div>
-
-<div class="card analise">
-Em análise
-<h2 id="analise">0</h2>
-</div>
-
-<div class="card resolvido">
-Resolvidos
-<h2 id="resolvidos">0</h2>
-</div>
-
-<div class="card total">
-Total
-<h2 id="total">0</h2>
-</div>
-
-</div>
-
-
-<!-- GRÁFICOS -->
-
-<h2>Estatísticas de Incidentes</h2>
-
-<div class="graficos">
-
-<div class="grafico-card">
-<canvas id="graficoStatus"></canvas>
-</div>
-
-<div class="grafico-card">
-<canvas id="graficoCriticidade"></canvas>
-</div>
-
-</div>
-
-
-<!-- LISTA -->
-
-<h2>Lista de Incidentes</h2>
-
-<table>
-
-<thead>
-<tr>
-<th>ID</th>
-<th>Título</th>
-<th>Criticidade</th>
-<th>Status</th>
-<th>Cliente</th>
-</tr>
-</thead>
-
-<tbody id="listaIncidentes"></tbody>
-
-</table>
-
-</div>
-
-</div>
-
+    <h2 class="secao-titulo">Últimos Incidentes</h2>
+    <div class="tabela-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Criticidade</th>
+                    <th>Status</th>
+                    <th>Cliente</th>
+                </tr>
+            </thead>
+            <tbody id="listaIncidentes"></tbody>
+        </table>
+    </div>
+</main>
 
 <script>
+let graficoStatus;
+let graficoCriticidade;
 
-let graficoStatus
-let graficoCriticidade
+// Configuração Global do Chart.js para cores brancas nos textos
+Chart.defaults.color = '#94a3b8';
 
+function atualizarGraficos(dados) {
+    const counts = {
+        aberto: dados.filter(i => i.status === "aberto").length,
+        analise: dados.filter(i => i.status === "analise").length,
+        resolvido: dados.filter(i => i.status === "resolvido").length,
+        baixa: dados.filter(i => i.criticidade === "baixa").length,
+        media: dados.filter(i => i.criticidade === "media").length,
+        alta: dados.filter(i => i.criticidade === "alta").length,
+        critica: dados.filter(i => i.criticidade === "critica").length
+    };
 
-function criarGraficos(dados){
+    if (graficoStatus) graficoStatus.destroy();
+    if (graficoCriticidade) graficoCriticidade.destroy();
 
-let abertos = dados.filter(i => i.status === "aberto").length
-let analise = dados.filter(i => i.status === "analise").length
-let resolvidos = dados.filter(i => i.status === "resolvido").length
+    // Gráfico de Status
+    graficoStatus = new Chart(document.getElementById("graficoStatus"), {
+        type: "bar",
+        data: {
+            labels: ["Abertos", "Em análise", "Resolvidos"],
+            datasets: [{
+                label: "Incidentes por Status",
+                data: [counts.aberto, counts.analise, counts.resolvido],
+                backgroundColor: ["#ef4444", "#f59e0b", "#10b981"]
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            indexAxis: 'y',
+            plugins: { legend: { display: false } }
+        }
+    });
 
-let baixa = dados.filter(i => i.criticidade === "baixa").length
-let media = dados.filter(i => i.criticidade === "media").length
-let alta = dados.filter(i => i.criticidade === "alta").length
-let critica = dados.filter(i => i.criticidade === "critica").length
-
-
-if(graficoStatus){
-graficoStatus.destroy()
+    // Gráfico de Criticidade
+    graficoCriticidade = new Chart(document.getElementById("graficoCriticidade"), {
+        type: "doughnut", // Mudei para Rosca para variar o visual!
+        data: {
+            labels: ["Baixa", "Média", "Alta", "Crítica"],
+            datasets: [{
+                data: [counts.baixa, counts.media, counts.alta, counts.critica],
+                backgroundColor: ["#94a3b8", "#3b82f6", "#f97316", "#ef4444"],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { position: 'bottom' } }
+        }
+    });
 }
 
-if(graficoCriticidade){
-graficoCriticidade.destroy()
+function carregarDados() {
+    fetch("http://localhost:3000/incidentes")
+        .then(res => res.json())
+        .then(dados => {
+            const lista = document.getElementById("listaIncidentes");
+            lista.innerHTML = "";
+
+            let nCriticos = 0, nAnalise = 0, nResolvidos = 0;
+
+            dados.forEach(i => {
+                if(i.criticidade === "critica") nCriticos++;
+                if(i.status === "analise") nAnalise++;
+                if(i.status === "resolvido") nResolvidos++;
+
+                const classeCriticidade = i.criticidade === "critica" ? "badge badge-critica" : (i.criticidade === "alta" ? "badge badge-alta" : "badge");
+
+                lista.innerHTML += `
+                    <tr>
+                        <td>#${i.id}</td>
+                        <td>${i.titulo}</td>
+                        <td><span class="${classeCriticidade}">${i.criticidade}</span></td>
+                        <td><span class="badge ${i.status === 'resolvido' ? 'badge-resolvido' : ''}">${i.status}</span></td>
+                        <td>${i.cliente}</td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById("num-criticos").innerText = nCriticos;
+            document.getElementById("num-analise").innerText = nAnalise;
+            document.getElementById("num-resolvidos").innerText = nResolvidos;
+            document.getElementById("num-total").innerText = dados.length;
+
+            atualizarGraficos(dados);
+        })
+        .catch(err => console.error("Erro ao carregar dados NOC:", err));
 }
 
-
-/* GRÁFICO STATUS - BARRA HORIZONTAL */
-
-graficoStatus = new Chart(document.getElementById("graficoStatus"),{
-
-type:"bar",
-
-data:{
-labels:["Abertos","Em análise","Resolvidos"],
-datasets:[{
-label:"Incidentes",
-data:[abertos,analise,resolvidos],
-backgroundColor:[
-"#ef4444",
-"#f59e0b",
-"#22c55e"
-]
-}]
-},
-
-options:{
-indexAxis:"y",
-plugins:{
-legend:{display:false}
-}
+function logout() {
+    localStorage.removeItem("usuario");
+    window.location.href = "login.html";
 }
 
-})
-
-
-/* GRÁFICO CRITICIDADE */
-
-graficoCriticidade = new Chart(document.getElementById("graficoCriticidade"),{
-
-type:"bar",
-
-data:{
-labels:["Baixa","Média","Alta","Crítica"],
-datasets:[{
-label:"Incidentes",
-data:[baixa,media,alta,critica],
-backgroundColor:"#3b82f6"
-}]
-}
-
-})
-
-}
-
-
-
-function carregarIncidentes(){
-
-fetch("http://localhost:3000/incidentes")
-
-.then(res=>res.json())
-
-.then(dados=>{
-
-let lista=document.getElementById("listaIncidentes")
-
-lista.innerHTML=""
-
-let criticos=0
-let analise=0
-let resolvidos=0
-
-
-dados.forEach(i=>{
-
-if(i.criticidade==="critica") criticos++
-if(i.status==="analise") analise++
-if(i.status==="resolvido") resolvidos++
-
-lista.innerHTML+=`
-
-<tr>
-<td>${i.id}</td>
-<td>${i.titulo}</td>
-<td>${i.criticidade}</td>
-<td>${i.status}</td>
-<td>${i.cliente}</td>
-</tr>
-
-`
-
-})
-
-
-document.getElementById("criticos").innerText = criticos
-document.getElementById("analise").innerText = analise
-document.getElementById("resolvidos").innerText = resolvidos
-document.getElementById("total").innerText = dados.length
-
-
-criarGraficos(dados)
-
-})
-
-}
-
-
-/* LOGOUT */
-
-function logout(){
-
-localStorage.removeItem("usuario")
-
-window.location.href = "login.html"
-
-}
-
-
-/* CARREGAR DADOS */
-
-carregarIncidentes()
-
-setInterval(carregarIncidentes,5000)
-
+// Inicialização
+carregarDados();
+setInterval(carregarDados, 5000); // Atualiza a cada 5 segundos
 </script>
 
 </body>

@@ -1,197 +1,200 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="pt-br">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logs do Sistema - SentinelaOps</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-<meta charset="UTF-8">
-<title>Logs do Sistema - SentinelaOps</title>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #0f172a;
+            color: white;
+            min-height: 100vh;
+        }
 
-<style>
+        .layout {
+            display: flex;
+        }
 
-body{
-font-family: Arial;
-background:#0f172a;
-color:white;
-margin:0;
-}
+        /* SIDEBAR */
+        .sidebar {
+            width: 240px;
+            background: #020617;
+            height: 100vh;
+            padding: 25px;
+            position: sticky;
+            top: 0;
+        }
 
-.layout{
-display:flex;
-}
+        .sidebar h2 {
+            color: #38bdf8;
+            margin-bottom: 35px;
+            font-size: 22px;
+            letter-spacing: 1px;
+            text-align: center;
+        }
 
-/* SIDEBAR */
+        .sidebar a {
+            display: block;
+            color: #94a3b8;
+            text-decoration: none;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
 
-.sidebar{
-width:220px;
-background:#020617;
-height:100vh;
-padding:20px;
-}
+        .sidebar a:hover {
+            background: #1e293b;
+            color: white;
+        }
 
-.sidebar h2{
-color:#38bdf8;
-margin-bottom:30px;
-}
+        .sidebar a.active {
+            background: #2563eb;
+            color: white;
+        }
 
-.sidebar a{
-display:block;
-color:white;
-text-decoration:none;
-padding:10px;
-margin-bottom:10px;
-border-radius:6px;
-}
+        hr {
+            border: 0;
+            border-top: 1px solid #1e293b;
+            margin: 20px 0;
+        }
 
-.sidebar a:hover{
-background:#1e293b;
-}
+        /* CONTEÚDO */
+        .conteudo {
+            flex: 1;
+            padding: 40px;
+        }
 
-/* CONTEÚDO */
+        h1 {
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
 
-.conteudo{
-flex:1;
-padding:40px;
-}
+        .card {
+            background: #1e293b;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
 
-.card{
-background:#1e293b;
-padding:20px;
-border-radius:10px;
-}
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
 
-table{
-width:100%;
-border-collapse:collapse;
-}
+        th {
+            color: #38bdf8;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+            padding: 15px 10px;
+            border-bottom: 2px solid #334155;
+            text-align: left;
+        }
 
-th,td{
-padding:10px;
-border-bottom:1px solid #334155;
-text-align:left;
-}
+        td {
+            padding: 15px 10px;
+            border-bottom: 1px solid #334155;
+            font-size: 14px;
+        }
 
-th{
-color:#38bdf8;
-}
+        tr:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
 
-.tipo-criacao{
-color:#22c55e;
-}
+        /* Cores de Status baseadas nas suas classes */
+        .tipo-criacao { color: #22c55e; font-weight: bold; }
+        .tipo-edicao { color: #facc15; font-weight: bold; }
+        .tipo-resolucao { color: #38bdf8; font-weight: bold; }
+        .tipo-erro { color: #ef4444; font-weight: bold; }
 
-.tipo-edicao{
-color:#facc15;
-}
-
-.tipo-resolucao{
-color:#ef4444;
-}
-
-</style>
-
+    </style>
 </head>
-
 <body>
 
 <div class="layout">
+    <nav class="sidebar">
+        <h2>SentinelaOps</h2>
+        <a href="index.html">Dashboard</a>
+        <a href="projeto_incidentes.html">Incidentes</a>
+        <a href="projeto_usuarios.html">Usuários</a>
+        <a href="painel_noc.html">Painel NOC</a>
+        <a href="logs.html" class="active">Logs</a>
+        <hr>
+        <a href="login.html" style="color: #fb7185;">Sair</a>
+    </nav>
 
-<!-- SIDEBAR -->
+    <main class="conteudo">
+        <h1>Logs do Sistema</h1>
 
-<div class="sidebar">
-
-<h2>SentinelaOps</h2>
-
-<a href="index.html">Dashboard</a>
-<a href="incidentes.html">Incidentes</a>
-<a href="usuarios.html">Usuários</a>
-<a href="painel_noc.html">Painel NOC</a>
-<a href="logs.html">Logs</a>
-
-<hr>
-
-<a href="login.html">Sair</a>
-
+        <div class="card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Usuário</th>
+                        <th>Ação</th>
+                        <th>Incidente</th>
+                        <th>Data e Hora</th>
+                    </tr>
+                </thead>
+                <tbody id="listaLogs">
+                    </tbody>
+            </table>
+        </div>
+    </main>
 </div>
-
-
-<!-- CONTEÚDO -->
-
-<div class="conteudo">
-
-<h1>Logs do Sistema</h1>
-
-<div class="card">
-
-<table>
-
-<thead>
-
-<tr>
-<th>ID</th>
-<th>Usuário</th>
-<th>Ação</th>
-<th>Incidente</th>
-<th>Data</th>
-</tr>
-
-</thead>
-
-<tbody id="listaLogs"></tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</div>
-
 
 <script>
+    function carregarLogs() {
+        fetch("http://localhost:3000/logs")
+            .then(res => {
+                if (!res.ok) throw new Error("Erro ao buscar logs");
+                return res.json();
+            })
+            .then(dados => {
+                const lista = document.getElementById("listaLogs");
+                
+                // Usando map para gerar o HTML de forma mais performática
+                lista.innerHTML = dados.map(log => {
+                    // Lógica para definir a cor da ação
+                    let classeCor = "";
+                    const acao = log.acao.toLowerCase();
+                    if (acao.includes("criou") || acao.includes("novo")) classeCor = "tipo-criacao";
+                    else if (acao.includes("editou") || acao.includes("alterou")) classeCor = "tipo-edicao";
+                    else if (acao.includes("resolveu") || acao.includes("fechou")) classeCor = "tipo-resolucao";
+                    else if (acao.includes("erro") || acao.includes("falha")) classeCor = "tipo-erro";
 
-function carregarLogs(){
+                    // Formatação de data brasileira
+                    const dataFormatada = new Date(log.data).toLocaleString('pt-BR');
 
-fetch("http://localhost:3000/logs")
+                    return `
+                        <tr>
+                            <td>#${log.id}</td>
+                            <td><strong>${log.usuario}</strong></td>
+                            <td class="${classeCor}">${log.acao}</td>
+                            <td>${log.incidente_id ? 'Incidente #' + log.incidente_id : '---'}</td>
+                            <td>${dataFormatada}</td>
+                        </tr>
+                    `;
+                }).join('');
+            })
+            .catch(err => console.error("Erro ao carregar logs:", err));
+    }
 
-.then(res => res.json())
+    // Carregamento inicial
+    carregarLogs();
 
-.then(dados => {
-
-let lista = document.getElementById("listaLogs")
-
-lista.innerHTML = ""
-
-dados.forEach(log => {
-
-lista.innerHTML += `
-
-<tr>
-
-<td>${log.id}</td>
-
-<td>${log.usuario}</td>
-
-<td>${log.acao}</td>
-
-<td>${log.incidente_id}</td>
-
-<td>${log.data}</td>
-
-</tr>
-
-`
-
-})
-
-})
-
-}
-
-carregarLogs()
-
-setInterval(carregarLogs,5000)
-
+    // Atualização automática (5 segundos)
+    setInterval(carregarLogs, 5000);
 </script>
 
 </body>
-
 </html>

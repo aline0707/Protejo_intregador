@@ -1,71 +1,63 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema ITSM - SentinelaOps</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #0f172a;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh; /* Centraliza verticalmente na tela toda */
+            margin: 0;
+        }
 
-<title>Sistema ITSM - SentinelaOps</title>
+        h1 {
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+        }
 
-<style>
+        .menu {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
 
-body{
-font-family: Arial;
-background:#0f172a;
-color:white;
-text-align:center;
-margin-top:100px;
-}
+        /* Estilizando o link diretamente como botão */
+        .btn {
+            padding: 15px 25px;
+            font-size: 16px;
+            text-decoration: none; /* Remove o sublinhado do link */
+            border-radius: 8px;
+            transition: background 0.3s ease;
+            background: #2563eb;
+            color: white;
+            font-weight: bold;
+        }
 
-h1{
-margin-bottom:40px;
-}
-
-.menu{
-display:flex;
-justify-content:center;
-gap:20px;
-flex-wrap:wrap;
-}
-
-button{
-padding:15px 25px;
-font-size:16px;
-border:none;
-border-radius:8px;
-cursor:pointer;
-background:#2563eb;
-color:white;
-}
-
-button:hover{
-background:#1d4ed8;
-}
-
-</style>
-
+        .btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px); /* Pequeno efeito de flutuar */
+        }
+    </style>
 </head>
-
 <body>
 
-<h1>Sistema de Gestão de Incidentes</h1>
+    <h1>Sistema de Gestão de Incidentes</h1>
 
-<div class="menu">
-
-<a href="login.html">
-<button>Login</button>
-</a>
-
-<a href="projeto_incidentes.html">
-<button>Incidentes</button>
-</a>
-
-<a href="painel_noc.html">
-<button>Painel NOC</button>
-</a>
-
-<a href="projeto_usuarios.html">
-<button>Usuários</button>
-</a>
-
-</div>
+    <nav class="menu">
+        <a href="login.html" class="btn">Login</a>
+        <a href="projeto_incidentes.html" class="btn">Incidentes</a>
+        <a href="painel_noc.html" class="btn">Painel NOC</a>
+        <a href="projeto_usuarios.html" class="btn">Usuários</a>
+    </nav>
 
 </body>
 </html>
