@@ -3,61 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema ITSM - SentinelaOps</title>
+    <title>Login - SentinelaOps</title>
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
             background: #0f172a;
-            color: white;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            justify-content: center;
-            min-height: 100vh; /* Centraliza verticalmente na tela toda */
-            margin: 0;
-        }
-
-        h1 {
-            margin-bottom: 40px;
-            font-size: 2.5rem;
-        }
-
-        .menu {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            padding: 20px;
-        }
-
-        /* Estilizando o link diretamente como botão */
-        .btn {
-            padding: 15px 25px;
-            font-size: 16px;
-            text-decoration: none; /* Remove o sublinhado do link */
-            border-radius: 8px;
-            transition: background 0.3s ease;
-            background: #2563eb;
+            height: 100vh;
             color: white;
-            font-weight: bold;
         }
 
-        .btn:hover {
+        .container {
+            background: #1e293b;
+            padding: 40px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 380px;
+            box-shadow: 0px 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .logo {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #38bdf8;
+            letter-spacing: 1px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 400;
+            color: #cbd5e1;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 20px;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            background: #0f172a;
+            color: white;
+            font-size: 15px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #38bdf8;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #2563eb;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
             background: #1d4ed8;
-            transform: translateY(-2px); /* Pequeno efeito de flutuar */
+        }
+
+        .erro {
+            color: #fb7185;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+            min-height: 20px;
         }
     </style>
 </head>
 <body>
 
-    <h1>Sistema de Gestão de Incidentes</h1>
+<div class="container">
+    <div class="logo">SENTINELAOPS</div>
+    <h2>Acesso ao Sistema</h2>
 
-    <nav class="menu">
-        <a href="login.html" class="btn">Login</a>
-        <a href="projeto_incidentes.html" class="btn">Incidentes</a>
-        <a href="painel_noc.html" class="btn">Painel NOC</a>
-        <a href="projeto_usuarios.html" class="btn">Usuários</a>
-    </nav>
+    <form id="formLogin">
+        <input type="text" id="usuario" placeholder="Usuário" required>
+        <input type="password" id="senha" placeholder="Senha" required>
+        <button type="submit">Entrar no Painel</button>
+    </form>
+
+    <div id="erro" class="erro"></div>
+</div>
+
+<!-- <script>
+    const form = document.getElementById("formLogin");
+    const erroDiv = document.getElementById("erro");
+
+    form.addEventListener("submit", function(event) {
+        event.preventDefault(); // Impede o recarregamento da página
+        efetuarLogin();
+    });
+
+    function efetuarLogin() {
+        const usuario = document.getElementById("usuario").value;
+        const senha = document.getElementById("senha").value;
+
+        erroDiv.innerText = "Autenticando...";
+
+        fetch("http://localhost:3000/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ usuario, senha })
+        })
+        .then(res => {
+            if (!res.ok) throw new Error("Erro no servidor");
+            return res.json();
+        })
+        .then(data => {
+            if (data.autenticado) {
+                // Sucesso! Redireciona para o painel
+                window.location.href = "painel_noc.html";
+            } else {
+                // Erro de credenciais
+                erroDiv.innerText = "Usuário ou senha incorretos.";
+            }
+        })
+        .catch(err => {
+            // Erro de conexão (ex: servidor Node desligado)
+            erroDiv.innerText = "Erro: Não foi possível conectar ao servidor.";
+            console.error(err);
+        });
+    }
+</script> -->
 
 </body>
 </html>

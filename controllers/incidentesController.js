@@ -94,3 +94,5 @@ exports.estatisticas = (req, res) => {
         res.json(resultado[0]);
     });
 };
+// backend/controllers/incidentesController.js
+

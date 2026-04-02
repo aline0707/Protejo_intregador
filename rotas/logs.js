@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require("../db");
 
 router.get("/", (req, res) => {
-    // Note que alterei 'L.data' para 'L.criado_em', que é o nome real no seu print
+    // aqui alterei 'L.data' para 'L.criado_em', que é o nome real da coluna na tabela logs_incidente
     const sql = `
         SELECT 
             L.id, 

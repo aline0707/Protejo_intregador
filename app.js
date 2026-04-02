@@ -13,14 +13,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Serve os arquivos da pasta 'public' (onde estão seus HTMLs)
+// Serve os arquivos da pasta 'public' (onde estão os HTMLs)
 app.use(express.static("public"));
 
 // Configuração das Rotas
 app.use("/usuarios", usuarios);
 app.use("/incidentes", incidentes);
 app.use("/logs", logs); // Rota de logs configurada
-app.use("/login", login); // Geralmente usamos um prefixo ou deixamos no login direto
+app.use("/index", login); // Geralmente usamos um prefixo ou deixamos no login direto
 
 // Rota padrão para verificar se o servidor está online
 app.get("/status", (req, res) => {
