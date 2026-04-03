@@ -20,20 +20,11 @@ app.use(express.static("public"));
 app.use("/usuarios", usuarios);
 app.use("/incidentes", incidentes);
 app.use("/logs", logs); // Rota de logs configurada
-app.use("/index", login); // Geralmente usamos um prefixo ou deixamos no login direto
+app.use("/login", login);
 
 // Rota padrão para verificar se o servidor está online
 app.get("/status", (req, res) => {
     res.json({ mensagem: "Servidor SentinelaOps online!" });
-});
-
-// INICIALIZAÇÃO DO SERVIDOR
-const PORTA = 3000;
-app.listen(PORTA, () => {
-    console.log(`==========================================`);
-    console.log(`🚀 Servidor rodando em: http://localhost:${PORTA}`);
-    console.log(`🛠️  SentinelaOps - Sistema de Gestão de TI`);
-    console.log(`==========================================`);
 });
 
 module.exports = app;

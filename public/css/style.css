@@ -1,0 +1,32 @@
+/* Estilos Globais SentinelaOps */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #0f172a; color: white; display: flex; min-height: 100vh; }
+.layout { display: flex; width: 100%; }
+
+/* SIDEBAR */
+.sidebar { width: 240px; background: #020617; height: 100vh; padding: 25px; position: sticky; top: 0; }
+.sidebar h2 { color: #38bdf8; margin-bottom: 30px; text-align: center; font-size: 22px; letter-spacing: 1px; }
+.sidebar a { display: block; color: #94a3b8; text-decoration: none; padding: 12px; margin-bottom: 8px; border-radius: 8px; transition: 0.3s; }
+.sidebar a:hover, .sidebar a.active { background: #1e293b; color: white; }
+.sidebar a.active { border-left: 4px solid #38bdf8; background: #2563eb; }
+
+/* CONTEÚDO E CARDS */
+.conteudo { flex: 1; padding: 40px; max-width: 1400px; }
+.card { background: #1e293b; padding: 25px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
+h1 { margin-bottom: 30px; font-weight: 300; font-size: 28px; }
+
+/* FORMULÁRIOS */
+input, textarea, select { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: white; outline: none; }
+button { padding: 12px 24px; border: none; border-radius: 8px; background: #2563eb; color: white; font-weight: bold; cursor: pointer; transition: 0.3s; }
+button:hover { background: #1d4ed8; }
+
+/* TABELAS */
+table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+th { text-align: left; padding: 15px; color: #38bdf8; border-bottom: 2px solid #334155; font-size: 0.9rem; }
+td { padding: 15px; border-bottom: 1px solid #334155; font-size: 0.9rem; }
+
+/* BADGES E STATUS */
+.badge { padding: 5px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; text-transform: uppercase; }
+.badge-critica { background: #7f1d1d; color: #fecaca; }
+.status-aberto { color: #facc15; }
+.status-resolvido { color: #22c55e; }

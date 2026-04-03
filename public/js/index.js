@@ -1,42 +1,34 @@
-{/* <script> */}
-    const form = document.getElementById("formLogin");
-    const erroDiv = document.getElementById("erro");
+const form = document.getElementById("formLogin");
+const erroDiv = document.getElementById("erro");
 
-    form.addEventListener("submit", function(event) {
-        event.preventDefault(); // Impede o recarregamento da página
-        efetuarLogin();
-    });
-
-    function efetuarLogin() {
+if (form) {
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
         const usuario = document.getElementById("usuario").value;
         const senha = document.getElementById("senha").value;
 
         erroDiv.innerText = "Autenticando...";
 
-        fetch("http://localhost:3000/index", {
+        // CORREÇÃO: Enviando para /login, como definido no seu server.js
+        fetch("http://localhost:3000/login", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ usuario, senha })
         })
-        .then(res => {
-            if (!res.ok) throw new Error("Erro no servidor");
-            return res.json();
-        })
+        .then(res => res.json())
         .then(data => {
             if (data.autenticado) {
-                // Sucesso! Redireciona para o painel
+                localStorage.setItem("usuario", JSON.stringify(data.usuario));
                 window.location.href = "painel_noc.html";
             } else {
-                // Erro de credenciais
-                erroDiv.innerText = "Usuário ou senha incorretos.";
+                erroDiv.innerText = data.mensagem || "Usuário ou senha incorretos.";
             }
         })
-        .catch(err => {
-            // Erro de conexão (ex: servidor Node desligado)
-            erroDiv.innerText = "Erro: Não foi possível conectar ao servidor.";
-            console.error(err);
-        });
-    }
-{/* </script> */}
+        .catch(() => erroDiv.innerText = "Erro: Servidor Offline.");
+    });
+}
+
+function logout() {
+    localStorage.removeItem("usuario");
+    window.location.href = "index.html";
+}

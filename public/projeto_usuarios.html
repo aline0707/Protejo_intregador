@@ -2,226 +2,74 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Usuários - SentinelaOps</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: #0f172a;
-            color: white;
-            display: flex;
-        }
-
-        /* SIDEBAR */
-        .sidebar {
-            width: 240px;
-            background: #020617;
-            height: 100vh;
-            padding: 25px;
-            position: sticky;
-            top: 0;
-        }
-
-        .sidebar h2 { color: #38bdf8; margin-bottom: 30px; text-align: center; }
-        
-        .sidebar a {
-            display: block;
-            color: #94a3b8;
-            text-decoration: none;
-            padding: 12px;
-            margin-bottom: 8px;
-            border-radius: 8px;
-            transition: 0.3s;
-        }
-
-        .sidebar a:hover { background: #1e293b; color: white; }
-        .sidebar a.active { background: #2563eb; color: white; }
-
-        /* CONTEÚDO */
-        .conteudo { flex: 1; padding: 40px; }
-
-        .card {
-            background: #1e293b;
-            padding: 25px;
-            border-radius: 12px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-        }
-
-        h2 { margin-bottom: 20px; color: #f8fafc; font-size: 1.2rem; }
-
-        input, select {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            border: 1px solid #334155;
-            background: #0f172a;
-            color: white;
-            outline: none;
-        }
-
-        /* BOTÕES */
-        .btn {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
-            margin-right: 5px;
-        }
-
-        .btn-primary { background: #2563eb; color: white; }
-        .btn-danger { background: #ef4444; color: white; }
-        .btn-success { background: #22c55e; color: white; }
-        .btn-warning { background: #f59e0b; color: white; }
-        .btn-secondary { background: #64748b; color: white; }
-
-        .btn:hover { opacity: 0.8; }
-
-        /* TABELA */
-        table { width: 100%; border-collapse: collapse; }
-        th { text-align: left; padding: 15px; color: #38bdf8; border-bottom: 2px solid #334155; }
-        td { padding: 15px; border-bottom: 1px solid #334155; font-size: 0.9rem; }
-
-        .perfil-operador { color: #38bdf8; text-transform: capitalize; }
-        .perfil-supervisor { color: #facc15; text-transform: capitalize; font-weight: bold; }
-        .status-ativo { color: #22c55e; }
-        .status-inativo { color: #ef4444; }
-
-    </style>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+<div class="layout">
 
-<nav class="sidebar">
-    <h2>SentinelaOps</h2>
-    <!-- <a href="index.html">Dashboard</a> -->
-    <a href="projeto_incidentes.html">Incidentes</a>
-    <a href="projeto_usuarios.html" class="active">Usuários</a>
-    <a href="painel_noc.html">Painel NOC</a>
-    <a href="logs.html">Logs</a>
-    <hr style="border:0; border-top:1px solid #334155; margin: 20px 0;">
-    <a href="index.html" style="color: #fb7185;">Sair</a>
-</nav>
-
-<main class="conteudo">
-    <h1>Gerenciamento de Usuários</h1>
-
-    <div class="card">
-        <h2>Novo Cadastro</h2>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-            <input id="nome" placeholder="Nome Completo">
-            <input id="email" placeholder="E-mail Corporativo">
-        </div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-            <input id="senha" type="password" placeholder="Senha Temporária">
-            <select id="perfil">
-                <option value="operador">Operador</option>
-                <option value="supervisor">Supervisor</option>
-            </select>
-        </div>
-        <button class="btn btn-primary" onclick="criarUsuario()">Cadastrar Usuário</button>
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <h2>SentinelaOps</h2>
+        <a href="/index.html">🏠 Login</a>
+        <a href="/painel_noc.html">📊 Painel NOC</a>
+        <a href="/projeto_incidentes.html">🚨 Incidentes</a>
+        <a href="/projeto_usuarios.html" class="active">👥 Usuários</a>
+        <a href="/logs.html">📋 Logs</a>
+        <a href="#" onclick="logout()" style="margin-top: auto; color: #fb7185;">🚪 Sair</a>
     </div>
 
-    <div class="card">
-        <h2>Usuários Cadastrados</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>Email</th>
-                    <th>Perfil</th>
-                    <th>Status</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody id="listaUsuarios"></tbody>
-        </table>
-    </div>
-</main>
+    <!-- CONTEÚDO -->
+    <div class="conteudo">
+        <h1>👥 Gestão de Usuários</h1>
 
-<script>
-    function listarUsuarios() {
-        fetch("http://localhost:3000/usuarios")
-            .then(res => res.json())
-            .then(dados => {
-                const lista = document.getElementById("listaUsuarios");
-                lista.innerHTML = "";
-                dados.forEach(u => {
-                    lista.innerHTML += `
+        <!-- FORMULÁRIO DE NOVO USUÁRIO -->
+        <div class="card">
+            <h2 style="margin-bottom: 20px; font-size: 18px;">Cadastrar Novo Usuário</h2>
+
+            <div style="display: flex; gap: 15px;">
+                <input type="text" id="nome" placeholder="Nome completo" style="flex: 1;">
+                <input type="email" id="email" placeholder="E-mail" style="flex: 1;">
+            </div>
+
+            <div style="display: flex; gap: 15px;">
+                <input type="password" id="senha" placeholder="Senha" style="flex: 1;">
+                <select id="perfil" style="flex: 1;">
+                    <option value="analista">Analista</option>
+                    <option value="admin">Administrador</option>
+                    <option value="viewer">Visualizador</option>
+                </select>
+            </div>
+
+            <button onclick="criarUsuario()">➕ Cadastrar Usuário</button>
+        </div>
+
+        <!-- TABELA DE USUÁRIOS -->
+        <div class="card">
+            <h2 style="margin-bottom: 15px; font-size: 18px;">Usuários Cadastrados</h2>
+            <table>
+                <thead>
                     <tr>
-                        <td>#${u.id}</td>
-                        <td>${u.nome}</td>
-                        <td>${u.email}</td>
-                        <td class="perfil-${u.perfil}">${u.perfil}</td>
-                        <td class="${u.ativo ? 'status-ativo' : 'status-inativo'}">
-                            ${u.ativo ? '● Ativo' : '● Inativo'}
-                        </td>
-                        <td>
-                            <button class="btn btn-secondary" onclick="editarUsuario(${u.id},'${u.nome}','${u.email}','${u.perfil}')">Editar</button>
-                            <button class="btn ${u.ativo ? 'btn-danger' : 'btn-success'}" onclick="toggleUsuario(${u.id}, ${u.ativo})">
-                                ${u.ativo ? 'Desativar' : 'Ativar'}
-                            </button>
-                        </td>
-                    </tr>`;
-                });
-            })
-            .catch(err => console.error("Erro ao listar:", err));
-    }
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                        <th>Perfil</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="listaUsuarios">
+                    <tr>
+                        <td colspan="6" style="text-align: center; color: #94a3b8;">Carregando usuários...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-    function criarUsuario() {
-        const nome = document.getElementById("nome").value;
-        const email = document.getElementById("email").value;
-        const senha = document.getElementById("senha").value;
-        const perfil = document.getElementById("perfil").value;
+</div>
 
-        if(!nome || !email || !senha) return alert("Preencha todos os campos!");
-
-        fetch("http://localhost:3000/usuarios", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ nome, email, senha, perfil, ativo: true })
-        })
-        .then(() => {
-            alert("Usuário criado!");
-            document.getElementById("nome").value = "";
-            document.getElementById("email").value = "";
-            document.getElementById("senha").value = "";
-            listarUsuarios();
-        });
-    }
-
-    function editarUsuario(id, nome, email, perfil) {
-        const novoNome = prompt("Novo nome:", nome);
-        if (!novoNome) return;
-        const novoEmail = prompt("Novo email:", email);
-        const novoPerfil = prompt("Perfil (operador/supervisor):", perfil);
-
-        fetch("http://localhost:3000/usuarios/" + id, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ nome: novoNome, email: novoEmail, perfil: novoPerfil })
-        })
-        .then(() => {
-            alert("Atualizado!");
-            listarUsuarios();
-        });
-    }
-
-    function toggleUsuario(id, ativo) {
-        fetch("http://localhost:3000/usuarios/" + id, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ ativo: !ativo })
-        })
-        .then(() => listarUsuarios());
-    }
-
-    listarUsuarios();
-</script>
+<script src="/js/index.js"></script>
+<script src="/js/projeto_usuarios.js"></script>
 </body>
 </html>
