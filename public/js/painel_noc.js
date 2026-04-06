@@ -1,4 +1,4 @@
-// VARIÁVEIS GLOBAIS (Não podem estar comentadas!)
+
 let graficoStatus;
 let graficoCriticidade;
 

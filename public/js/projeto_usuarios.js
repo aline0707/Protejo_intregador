@@ -40,7 +40,29 @@ function criarUsuario() {
         listarUsuarios();
     });
 }
+function editarUsuario(id, nomeAtual, emailAtual) {
+    const novoNome = prompt("Novo nome:", nomeAtual);
+    if (novoNome === null) return;
 
+    const novoEmail = prompt("Novo e-mail:", emailAtual);
+    if (novoEmail === null) return;
+
+    if (!novoNome.trim() || !novoEmail.trim()) {
+        alert("Nome e e-mail não podem ser vazios!");
+        return;
+    }
+
+    fetch(`http://localhost:3000/usuarios/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nome: novoNome, email: novoEmail })
+    })
+    .then(() => {
+        alert("Usuário atualizado!");
+        listarUsuarios();
+    })
+    .catch(err => console.error("Erro ao editar usuário:", err));
+}
 function toggleUsuario(id, ativo) {
     fetch(`http://localhost:3000/usuarios/${id}`, {
         method: "PUT",
