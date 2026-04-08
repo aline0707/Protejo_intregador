@@ -3,7 +3,7 @@ const router = express.Router();
 const usuariosController = require("../controllers/usuariosController");
 
 // LISTAR TODOS OS USUÁRIOS
-// Chamado pelo fetch("http://localhost:3000/usuarios")
+// Chamado pelo fetch("http://https://protejo-intregador.onrender.com/usuarios")
 router.get("/", usuariosController.listarUsuarios);
 
 // CRIAR NOVO USUÁRIO
@@ -11,7 +11,7 @@ router.get("/", usuariosController.listarUsuarios);
 router.post("/", usuariosController.criarUsuario);
 
 // ATUALIZAR USUÁRIO (NOME, EMAIL, PERFIL)
-// Chamado pelo fetch("http://localhost:3000/usuarios/ID") com método PUT
+// Chamado pelo fetch("http://https://protejo-intregador.onrender.com/usuarios/ID") com método PUT
 router.put("/:id", usuariosController.atualizarUsuario);
 
 // ALTERAR STATUS (ATIVAR/DESATIVAR)

@@ -10,7 +10,7 @@ if (form) {
         erroDiv.innerText = "Autenticando...";
 
         // CORREÇÃO: Enviando para /login, como definido no seu server.js
-        fetch("http://localhost:3000/login", {
+        fetch("http://https://protejo-intregador.onrender.com/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ usuario, senha })

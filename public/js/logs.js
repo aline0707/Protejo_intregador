@@ -1,5 +1,5 @@
 function carregarLogs() {
-    fetch("http://localhost:3000/logs")
+    fetch("http://https://protejo-intregador.onrender.com/logs")
         .then(res => res.json())
         .then(dados => {
             const lista = document.getElementById("listaLogs");

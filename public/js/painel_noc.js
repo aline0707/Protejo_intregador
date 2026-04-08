@@ -54,7 +54,7 @@ function atualizarGraficos(dados) {
 }
 
 function carregarDados() {
-    fetch("http://localhost:3000/incidentes")
+    fetch("http://https://protejo-intregador.onrender.com/incidentes")
         .then(res => {
             if (!res.ok) throw new Error("Erro na rede");
             return res.json();

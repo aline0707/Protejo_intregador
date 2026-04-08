@@ -7,5 +7,5 @@ const sugerirSolucao = (texto) => {
     return "Sugestão: Analisar logs detalhados do sistema.";
 };
 
-// ESSA LINHA É OBRIGATÓRIA:
+
 module.exports = sugerirSolucao;
