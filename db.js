@@ -1,3 +1,5 @@
+const mysql = require("mysql2"); // ← essa linha tem que ser a primeira!
+
 const conexao = mysql.createConnection({
   host:     process.env.DB_HOST     || "gateway01.us-east-1.prod.aws.tidbcloud.com",
   user:     process.env.DB_USER     || "3vAvdd9HPLCJQ5d.root",
