@@ -5,7 +5,7 @@ const cors = require("cors");
 const usuarios = require("./rotas/usuarios");
 const incidentes = require("./rotas/incidentes");
 const login = require("./rotas/login");
-const logs = require("./rotas/logs"); // Adicionei a rota de logs aqui
+const logs = require("./rotas/logs"); //  rota de logs aqui
 
 const app = express();
 
