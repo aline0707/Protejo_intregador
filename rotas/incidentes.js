@@ -10,8 +10,10 @@ router.post("/", incidentesController.criarIncidente);
 
 router.put("/:id", incidentesController.atualizarStatus);
 
+router.get("/estatisticas", incidentesController.estatisticas);
+
 router.get("/:id/logs", incidentesController.buscarLogsIncidente);
 
-router.get("/estatisticas", incidentesController.estatisticas);
+
 
 module.exports = router;
