@@ -1,23 +1,22 @@
 const mysql = require("mysql2");
 
 const conexao = mysql.createConnection({
-  host: "gateway01.us-east-1.prod.aws.tidbcloud.com", // EXEMPLO: Use o host do TiDB
-  user: "seu_usuario.root",                         // Usuário do TiDB
-  password: " ",                    // Senha do TiDB
-  database: "sentinelaops",                         // Nome do banco
-  port: 4000,                                       // O TiDB geralmente usa a porta 4000 (e não 3306)
+  host: "SEU_HOST_DO_TIDB",
+  user: "SEU_USUARIO",
+  password: "SUA_SENHA",
+  database: "sentinelaops",
+  port: 4000, // Porta padrão TiDB
   ssl: {
     minVersion: 'TLSv1.2',
-    rejectUnauthorized: true                       // TiDB exige conexão segura SSL
+    rejectUnauthorized: true
   }
 });
 
-
 conexao.connect((err) => {
   if (err) {
-    console.log("Erro ao conectar no banco:", err);
+    console.error("Erro ao conectar no TiDB:", err.message);
   } else {
-    console.log("Banco conectado!");
+    console.log("Conectado com sucesso ao TiDB!");
   }
 });
 

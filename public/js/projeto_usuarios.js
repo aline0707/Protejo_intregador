@@ -1,5 +1,5 @@
 function listarUsuarios() {
-    fetch("http://https://protejo-intregador.onrender.com/usuarios")
+    fetch("https://protejo-intregador.onrender.com/usuarios")
         .then(res => res.json())
         .then(dados => {
             const lista = document.getElementById("listaUsuarios");
@@ -31,7 +31,7 @@ function criarUsuario() {
         ativo: true
     };
 
-    fetch("http://https://protejo-intregador.onrender.com/usuarios", {
+    fetch("https://protejo-intregador.onrender.com/usuarios", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
@@ -52,7 +52,7 @@ function editarUsuario(id, nomeAtual, emailAtual) {
         return;
     }
 
-    fetch(`http://https://protejo-intregador.onrender.com/usuarios/${id}`, {
+    fetch(`https://protejo-intregador.onrender.com/usuarios/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ nome: novoNome, email: novoEmail })
@@ -64,7 +64,7 @@ function editarUsuario(id, nomeAtual, emailAtual) {
     .catch(err => console.error("Erro ao editar usuário:", err));
 }
 function toggleUsuario(id, ativo) {
-    fetch(`http://https://protejo-intregador.onrender.com/usuarios/${id}`, {
+    fetch(`https://protejo-intregador.onrender.com/usuarios/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ativo: !ativo })
