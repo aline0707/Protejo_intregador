@@ -15,7 +15,7 @@ router.post("/", usuariosController.criarUsuario);
 router.put("/:id", usuariosController.atualizarUsuario);
 
 // ALTERAR STATUS (ATIVAR/DESATIVAR)
-// Você pode usar a mesma rota de atualizar ou uma específica
+
 router.patch("/:id/status", usuariosController.alterarStatus);
 
 module.exports = router;
