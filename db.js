@@ -1,10 +1,10 @@
 const mysql = require("mysql2");
 
 const conexao = mysql.createConnection({
-  host: "SEU_HOST_DO_TIDB",
-  user: "SEU_USUARIO",
-  password: "SUA_SENHA",
-  database: "sentinelaops",
+  host: "gateway01.us-east-1.prod.aws.tidbcloud.com",
+  user: "3vAvdd9HPLCJQ5d.root",
+  password: " ",
+  database: "SentinelaOps",
   port: 4000, // Porta padrão TiDB
   ssl: {
     minVersion: 'TLSv1.2',
