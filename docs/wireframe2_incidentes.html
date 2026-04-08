@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Wireframe — Incidentes</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',sans-serif;background:#0f172a;color:#f1f5f9;padding:40px 20px;}
+h1{color:#38bdf8;font-weight:300;font-size:22px;margin-bottom:8px;letter-spacing:1px;}
+.subtitle{color:#64748b;font-size:13px;margin-bottom:32px;}
+.wf-label{font-size:11px;font-weight:500;color:#64748b;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
+.screen{border:1px solid #334155;border-radius:12px;overflow:hidden;background:#1e293b;margin-bottom:40px;}
+.layout{display:flex;min-height:500px;}
+.sidebar{width:150px;background:#020617;border-right:1px solid #1e293b;padding:12px 8px;display:flex;flex-direction:column;gap:4px;flex-shrink:0;}
+.sb-logo{font-size:12px;font-weight:600;color:#38bdf8;padding:8px;margin-bottom:8px;border-bottom:1px solid #1e293b;}
+.sb-item{font-size:11px;color:#64748b;padding:7px 8px;border-radius:6px;}
+.sb-item.active{background:#2563eb;color:white;border-left:3px solid #38bdf8;}
+.sb-sair{font-size:11px;color:#fb7185;padding:7px 8px;margin-top:auto;}
+.content{flex:1;padding:20px;display:flex;flex-direction:column;gap:14px;overflow:hidden;}
+.page-title{font-size:16px;font-weight:400;color:#f1f5f9;}
+.form-box{background:#0f172a;border:1px solid #334155;border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:10px;}
+.form-title{font-size:12px;font-weight:500;color:#f1f5f9;margin-bottom:2px;}
+.frow-2{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.finput{height:32px;background:#1e293b;border:1px solid #334155;border-radius:6px;font-size:10px;color:#64748b;padding:0 10px;display:flex;align-items:center;}
+.ftextarea{height:52px;background:#1e293b;border:1px solid #334155;border-radius:6px;font-size:10px;color:#64748b;padding:8px 10px;}
+.fselect{height:32px;background:#1e293b;border:1px solid #334155;border-radius:6px;font-size:10px;color:#64748b;padding:0 10px;display:flex;align-items:center;justify-content:space-between;}
+.ia-box{background:#0c1a2e;border-left:3px solid #2563eb;border-radius:0 6px 6px 0;padding:8px 12px;font-size:10px;color:#60a5fa;}
+.btn-primary{background:#2563eb;color:white;border:none;border-radius:6px;padding:8px 14px;font-size:11px;font-weight:500;text-align:center;}
+.table-box{background:#0f172a;border:1px solid #334155;border-radius:8px;overflow:hidden;}
+.table-head{display:grid;padding:8px 12px;background:#0f172a;font-size:10px;font-weight:500;color:#38bdf8;border-bottom:1px solid #334155;}
+.table-row{display:grid;padding:8px 12px;border-bottom:1px solid #1e293b;font-size:10px;color:#94a3b8;align-items:center;}
+.badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:9px;font-weight:600;}
+.badge-red{background:#7f1d1d;color:#fecaca;}
+.badge-yellow{background:#78350f;color:#fde68a;}
+.badge-green{background:#14532d;color:#86efac;}
+.badge-blue{background:#1e3a5f;color:#93c5fd;}
+.btn-resolver{background:#2563eb;color:white;border:none;border-radius:4px;padding:3px 10px;font-size:9px;cursor:pointer;}
+</style>
+</head>
+<body>
+<h1>Wireframe — Gestão de Incidentes</h1>
+<p class="subtitle">SentinelaOps — projeto_incidentes.html</p>
+
+<div class="wf-label">Tela 3 — Incidentes (projeto_incidentes.html)</div>
+<div class="screen">
+  <div class="layout">
+    <div class="sidebar">
+      <div class="sb-logo">SentinelaOps</div>
+      <div class="sb-item">Login</div>
+      <div class="sb-item">Painel NOC</div>
+      <div class="sb-item active">Incidentes</div>
+      <div class="sb-item">Usuários</div>
+      <div class="sb-item">Logs</div>
+      <div class="sb-sair">Sair</div>
+    </div>
+    <div class="content">
+      <div class="page-title">Gestão de Incidentes</div>
+      <div class="form-box">
+        <div class="form-title">Registrar novo incidente</div>
+        <div class="finput">Título do incidente</div>
+        <div class="ftextarea">Descrição detalhada do problema...</div>
+        <div class="frow-2">
+          <div class="fselect"><span>Criticidade</span><span>▾</span></div>
+          <div class="fselect"><span>Status</span><span>▾</span></div>
+        </div>
+        <div class="finput">Cliente afetado</div>
+        <div class="ia-box">Sugestão automática de IA aparece aqui após preencher o título</div>
+        <div class="btn-primary">+ Registrar Incidente</div>
+      </div>
+      <div class="table-box">
+        <div class="table-head" style="grid-template-columns:36px 1fr 80px 70px 70px;">
+          <span>ID</span><span>Título</span><span>Criticidade</span><span>Status</span><span>Ação</span>
+        </div>
+        <div class="table-row" style="grid-template-columns:36px 1fr 80px 70px 70px;">
+          <span>#12</span><span>Servidor fora do ar</span>
+          <span><span class="badge badge-red">CRÍTICA</span></span>
+          <span style="color:#f59e0b;">aberto</span>
+          <span><button class="btn-resolver">Resolver</button></span>
+        </div>
+        <div class="table-row" style="grid-template-columns:36px 1fr 80px 70px 70px;">
+          <span>#11</span><span>Link instável</span>
+          <span><span class="badge badge-yellow">ALTA</span></span>
+          <span style="color:#f59e0b;">aberto</span>
+          <span><button class="btn-resolver">Resolver</button></span>
+        </div>
+        <div class="table-row" style="grid-template-columns:36px 1fr 80px 70px 70px;">
+          <span>#10</span><span>Banco lento</span>
+          <span><span class="badge badge-blue">MÉDIA</span></span>
+          <span style="color:#22c55e;">resolvido</span>
+          <span style="color:#22c55e;">✅</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

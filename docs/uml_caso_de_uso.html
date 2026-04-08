@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>UML Caso de Uso — SentinelaOps</title>
+<style>
+  body { font-family: 'Segoe UI', sans-serif; background: #0f172a; display: flex; flex-direction: column; align-items: center; padding: 40px 20px; min-height: 100vh; margin: 0; }
+  h1 { color: #38bdf8; font-weight: 300; font-size: 22px; margin-bottom: 32px; letter-spacing: 1px; }
+  svg { max-width: 680px; width: 100%; }
+  .th { font-family: 'Segoe UI', sans-serif; font-size: 14px; font-weight: 500; }
+  .ts { font-family: 'Segoe UI', sans-serif; font-size: 12px; font-weight: 400; fill: #94a3b8; }
+  .arr { stroke: #475569; stroke-width: 1px; fill: none; }
+  .node { cursor: pointer; }
+  .node:hover ellipse, .node:hover rect { opacity: 0.85; }
+</style>
+</head>
+<body>
+<h1>UML — Diagrama de Caso de Uso — SentinelaOps</h1>
+<svg viewBox="0 0 680 760">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#475569" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <!-- Retângulo do sistema -->
+  <rect x="160" y="30" width="380" height="670" rx="12" fill="none" stroke="#334155" stroke-width="1" stroke-dasharray="6 3"/>
+  <text class="th" x="350" y="58" text-anchor="middle" dominant-baseline="central" fill="#38bdf8">SentinelaOps</text>
+
+  <!-- CASOS DE USO -->
+
+  <!-- Fazer login -->
+  <ellipse cx="350" cy="110" rx="100" ry="22" fill="#312e81" stroke="#4338ca" stroke-width="0.5"/>
+  <text class="th" x="350" y="110" text-anchor="middle" dominant-baseline="central" fill="#c7d2fe">Fazer login</text>
+
+  <!-- Criar incidente -->
+  <ellipse cx="350" cy="200" rx="110" ry="22" fill="#134e4a" stroke="#0f766e" stroke-width="0.5"/>
+  <text class="th" x="350" y="200" text-anchor="middle" dominant-baseline="central" fill="#99f6e4">Criar incidente</text>
+
+  <!-- Listar incidentes -->
+  <ellipse cx="350" cy="270" rx="110" ry="22" fill="#134e4a" stroke="#0f766e" stroke-width="0.5"/>
+  <text class="th" x="350" y="270" text-anchor="middle" dominant-baseline="central" fill="#99f6e4">Listar incidentes</text>
+
+  <!-- Resolver incidente -->
+  <ellipse cx="350" cy="340" rx="110" ry="22" fill="#134e4a" stroke="#0f766e" stroke-width="0.5"/>
+  <text class="th" x="350" y="340" text-anchor="middle" dominant-baseline="central" fill="#99f6e4">Resolver incidente</text>
+
+  <!-- Receber sugestão de IA -->
+  <ellipse cx="350" cy="415" rx="120" ry="22" fill="#78350f" stroke="#b45309" stroke-width="0.5"/>
+  <text class="th" x="350" y="415" text-anchor="middle" dominant-baseline="central" fill="#fde68a">Receber sugestão de IA</text>
+
+  <!-- Visualizar painel NOC -->
+  <ellipse cx="350" cy="490" rx="120" ry="22" fill="#1e3a5f" stroke="#1d4ed8" stroke-width="0.5"/>
+  <text class="th" x="350" y="490" text-anchor="middle" dominant-baseline="central" fill="#93c5fd">Visualizar painel NOC</text>
+
+  <!-- Visualizar logs -->
+  <ellipse cx="350" cy="560" rx="110" ry="22" fill="#1e3a5f" stroke="#1d4ed8" stroke-width="0.5"/>
+  <text class="th" x="350" y="560" text-anchor="middle" dominant-baseline="central" fill="#93c5fd">Visualizar logs</text>
+
+  <!-- Gerenciar usuários -->
+  <ellipse cx="350" cy="635" rx="120" ry="22" fill="#7f1d1d" stroke="#991b1b" stroke-width="0.5"/>
+  <text class="th" x="350" y="635" text-anchor="middle" dominant-baseline="central" fill="#fecaca">Gerenciar usuários</text>
+
+  <!-- ATOR: ANALISTA NOC -->
+  <circle cx="68" cy="96" r="14" fill="none" stroke="#94a3b8" stroke-width="1.2"/>
+  <line x1="68" y1="110" x2="68" y2="150" stroke="#94a3b8" stroke-width="1.2"/>
+  <line x1="68" y1="122" x2="46" y2="138" stroke="#94a3b8" stroke-width="1.2"/>
+  <line x1="68" y1="122" x2="90" y2="138" stroke="#94a3b8" stroke-width="1.2"/>
+  <line x1="68" y1="150" x2="52" y2="172" stroke="#94a3b8" stroke-width="1.2"/>
+  <line x1="68" y1="150" x2="84" y2="172" stroke="#94a3b8" stroke-width="1.2"/>
+  <text class="ts" x="68" y="185" text-anchor="middle">Analista NOC</text>
+
+  <!-- Linhas Analista -->
+  <line x1="100" y1="110" x2="248" y2="110" stroke="#475569" stroke-width="0.8" marker-end="url(#arrow)"/>
+  <line x1="100" y1="115" x2="238" y2="196" stroke="#475569" stroke-width="0.8" marker-end="url(#arrow)"/>
+  <line x1="100" y1="118" x2="238" y2="267" stroke="#475569" stroke-width="0.8" marker-end="url(#arrow)"/>
+  <line x1="100" y1="120" x2="238" y2="336" stroke="#475569" stroke-width="0.8" marker-end="url(#arrow)"/>
+  <line x1="100" y1="122" x2="228" y2="487" stroke="#475569" stroke-width="0.8" marker-end="url(#arrow)"/>
+  <line x1="100" y1="123" x2="238" y2="557" stroke="#475569" stroke-width="0.8" marker-end="url(#arrow)"/>
+
+  <!-- ATOR: ADMINISTRADOR -->
+  <circle cx="612" cy="490" r="14" fill="none" stroke="#94a3b8" stroke-width="1.2"/>
+  <line x1="612" y1="504" x2="612" y2="544" stroke="#94a3b8" stroke-width="1.2"/>
+  <line x1="612" y1="516" x2="590" y2="532" stroke="#94a3b8" stroke-width="1.2"/>
+  <line x1="612" y1="516" x2="634" y2="532" stroke="#94a3b8" stroke-width="1.2"/>
+  <line x1="612" y1="544" x2="596" y2="566" stroke="#94a3b8" stroke-width="1.2"/>
+  <line x1="612" y1="544" x2="628" y2="566" stroke="#94a3b8" stroke-width="1.2"/>
+  <text class="ts" x="612" y="580" text-anchor="middle">Administrador</text>
+
+  <!-- Linhas Admin -->
+  <line x1="580" y1="490" x2="472" y2="490" stroke="#475569" stroke-width="0.8" marker-end="url(#arrow)"/>
+  <line x1="580" y1="498" x2="472" y2="557" stroke="#475569" stroke-width="0.8" marker-end="url(#arrow)"/>
+  <line x1="580" y1="500" x2="472" y2="632" stroke="#475569" stroke-width="0.8" marker-end="url(#arrow)"/>
+
+  <!-- extend: criar incidente -> sugestão IA -->
+  <line x1="350" y1="222" x2="350" y2="392" stroke="#334155" stroke-width="0.8" stroke-dasharray="5 3" marker-end="url(#arrow)"/>
+  <text class="ts" x="364" y="308" text-anchor="start">«extend»</text>
+
+  <!-- LEGENDA -->
+  <rect x="170" y="700" width="360" height="32" rx="6" fill="none" stroke="#334155" stroke-width="0.5"/>
+  <ellipse cx="200" cy="716" rx="20" ry="8" fill="none" stroke="#94a3b8" stroke-width="0.7"/>
+  <text class="ts" x="228" y="719">Caso de uso</text>
+  <line x1="310" y1="716" x2="340" y2="716" stroke="#475569" stroke-width="0.8" marker-end="url(#arrow)"/>
+  <text class="ts" x="348" y="719">Associação</text>
+  <line x1="430" y1="716" x2="460" y2="716" stroke="#334155" stroke-width="0.8" stroke-dasharray="4 2" marker-end="url(#arrow)"/>
+  <text class="ts" x="468" y="719">«extend»</text>
+</svg>
+</body>
+</html>
