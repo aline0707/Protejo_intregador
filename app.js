@@ -16,6 +16,8 @@ app.use(express.json());
 // Serve os arquivos da pasta 'public' (onde estão os HTMLs)
 app.use(express.static("public"));
 
+app.use("/docs", express.static("docs"));
+
 // Configuração das Rotas
 app.use("/usuarios", usuarios);
 app.use("/incidentes", incidentes);
